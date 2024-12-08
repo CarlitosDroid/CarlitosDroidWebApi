@@ -16,9 +16,9 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}/{mensaje}")]
-    public async Task<ActionResult<User>> GetUsuarioById(int id, String mensaje)
+    public async Task<ActionResult<User>> GetUserById(int id, String mensaje)
     {
-        var result = await userService.GetUsuarioById(id);
+        var result = await userService.GetUserById(id);
         if (result != null)
         {
             return result;
@@ -31,17 +31,17 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [Route("Usuarios")]
-    public async Task<ActionResult<IEnumerable<User>>> GetUsuarios()
+    public async Task<ActionResult<IEnumerable<User>>> GetUser()
     {
         IEnumerable<User> users;
-        users = await userService.GetUsuarios();
+        users = await userService.GetUsers();
         return Ok(users);
     }
 
     [HttpPost]
-    public async Task<ActionResult<User>> PostUsuarios(User user)
+    public async Task<ActionResult<User>> PostUser(User user)
     {
-        var result = await userService.AddUsuario(user);
+        var result = await userService.AddUser(user);
         if (result != null)
         {
             return result;
@@ -53,17 +53,17 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<User>> UpdateUsuario(int id, User user)
+    public async Task<ActionResult<User>> UpdateUser(int id, User user)
     {
 
-        var userToUpdate = await userService.GetUsuarioById(id);
+        var userToUpdate = await userService.GetUserById(id);
 
         if (userToUpdate == null)
         {
-            return NotFound($"Usuario with ID = {id} not found");
+            return NotFound($"User with ID = {id} not found");
         }
 
-        return await userService.PutUsuario(user);
+        return await userService.PutUser(user);
 
     }
 
@@ -71,18 +71,18 @@ public class UserController : ControllerBase
      * Remember this will response with 204 because we cannot response the deleted object
      */
     [HttpDelete("{id}")]
-    public async Task<ActionResult<User>> DeleteUsuario(int id)
+    public async Task<ActionResult<User>> DeleteUser(int id)
     {
 
         try
         {
-            var userToDelete = await userService.DeleteUsuario(id);
+            var userToDelete = await userService.DeleteUser(id);
 
             if (userToDelete == null)
             {
-                return NotFound($"Usuario con ID = {id} not found");
+                return NotFound($"User con ID = {id} not found");
             }
-            return await userService.DeleteUsuario(id);
+            return await userService.DeleteUser(id);
         }
         catch (Exception)
         {

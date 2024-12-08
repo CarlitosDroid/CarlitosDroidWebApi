@@ -17,10 +17,10 @@ public partial class UserDbContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.ToTable("Usuario");
-            entity.Property(e => e.Id).ValueGeneratedNever().HasColumnName("id");
-            entity.Property(e => e.Nombre).HasMaxLength(20).HasColumnName("name");
-            entity.Property(e => e.Apellido).HasMaxLength(20).HasColumnName("lastname");
-            entity.Property(e => e.Telefono).HasColumnName("phone");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Nombre).HasMaxLength(20).HasColumnName("nombre");
+            entity.Property(e => e.Apellido).HasMaxLength(20).HasColumnName("apellido");
+            entity.Property(e => e.Telefono).HasColumnName("telefono");
         });
         OnModelCreatingPartial(modelBuilder);
 

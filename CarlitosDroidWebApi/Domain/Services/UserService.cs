@@ -15,19 +15,19 @@ public class UserService
         _userDBContext = userDBContext;
     }
 
-    public async Task<User> GetUsuarioById(int userId)
+    public async Task<User> GetUserById(int userId)
     {
         var user = await _userDBContext.Users.Where(x => x.Id == userId).SingleOrDefaultAsync();
         return user;
     }
 
-    public async Task<List<User>> GetUsuarios()
+    public async Task<List<User>> GetUsers()
     {
         var users = _userDBContext.Users;
         return await users.ToListAsync();
     }
 
-    public async Task<User> AddUsuario(User user)
+    public async Task<User> AddUser(User user)
     {
         var result = await _userDBContext.Users.AddAsync(user);
         await _userDBContext.SaveChangesAsync();
@@ -35,7 +35,7 @@ public class UserService
         return result.Entity;
     }
 
-    public async Task<ActionResult<User>> PutUsuario(User user)
+    public async Task<ActionResult<User>> PutUser(User user)
     {
         var result = await _userDBContext.Users
             .FirstOrDefaultAsync(e => e.Id == user.Id);
@@ -54,9 +54,8 @@ public class UserService
         return null;
     }
 
-    public async Task<User> DeleteUsuario(int userId)
+    public async Task<User> DeleteUser(int userId)
     {
-
         var result = await _userDBContext.Users
                 .FirstOrDefaultAsync(e => e.Id == userId);
 
