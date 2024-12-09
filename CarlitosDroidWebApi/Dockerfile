@@ -17,8 +17,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/out ./
 
-# Expose the port your application will run on
-EXPOSE 80
+# Expose the port your application will run on. 8080 is new port for .NET 8
+EXPOSE 8080
 
 # Start the application
 ENTRYPOINT ["dotnet", "CarlitosDroidWebApi.dll"]
