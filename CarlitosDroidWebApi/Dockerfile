@@ -19,6 +19,7 @@ COPY --from=build /app/out ./
 
 # Expose the port your application will run on. 8080 is new port for .NET 8
 EXPOSE 8080
+EXPOSE 8081
 
 # Start the application
 ENTRYPOINT ["dotnet", "CarlitosDroidWebApi.dll"]

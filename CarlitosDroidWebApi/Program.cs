@@ -36,7 +36,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
     );
 }
 
-app.UseHttpsRedirection();
+
 //app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
