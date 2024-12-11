@@ -28,13 +28,13 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
-//{
+if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
+{
     app.UseSwagger();
     app.UseSwaggerUI(options =>
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "CarlitosDroid Web Api Definition v1")
     );
-//}
+}
 
 
 //app.UseRouting();
