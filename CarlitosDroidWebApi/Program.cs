@@ -14,10 +14,10 @@ var dbStringConnection = builder.Configuration.GetConnectionString("DefaultConne
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddHealthChecks();
-/*builder.Services.AddDbContext<UserDbContext>(options =>
+builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseSqlServer(dbStringConnection)
 );
-builder.Services.AddScoped<UserService>();*/
+builder.Services.AddScoped<UserService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -39,6 +39,6 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging())
 
 //app.UseRouting();
 app.UseAuthorization();
-app.MapControllers();
 app.MapHealthChecks("/healthz");
+app.MapControllers();
 app.Run();
