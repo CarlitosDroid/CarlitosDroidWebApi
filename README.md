@@ -14,3 +14,10 @@
 
 Server: `localhost,1433`
 Username: `sa`
+
+# Used Libraries
+
+1. For documentation: `Swashbuckle.AspNetCore`
+2. For documentation: `Swashbuckle.AspNetCore.Annotations`
+3. For connecting DB: `Microsoft.EntityFrameworkCore.SqlServer`
+4. For Authentication with JWT: `Microsoft.AspNetCore.Authentication.JwtBearer`
