@@ -1,5 +1,6 @@
 using CarlitosDroidWebApi.Domain.Models;
 using CarlitosDroidWebApi.Domain.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarlitosDroidWebApi.Controllers;
@@ -15,8 +16,9 @@ public class UserController : ControllerBase
         this.userService = userService;
     }
 
-    [HttpGet("{id}/{mensaje}")]
-    public async Task<ActionResult<User>> GetUserById(int id, String mensaje)
+    [HttpGet("{id}/favorites/{favoriteId}")]
+    [Authorize]
+    public async Task<ActionResult<User>> GetUserById(string id, String favoriteId)
     {
         var result = await userService.GetUserById(id);
         if (result != null)
@@ -31,6 +33,7 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [Route("Usuarios")]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<User>>> GetUser()
     {
         IEnumerable<User> users;
@@ -38,22 +41,9 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<User>> PostUser(User user)
-    {
-        var result = await userService.AddUser(user);
-        if (result != null)
-        {
-            return result;
-        }
-        else
-        {
-            return NotFound();
-        }
-    }
-
     [HttpPut("{id}")]
-    public async Task<ActionResult<User>> UpdateUser(int id, User user)
+    [Authorize]
+    public async Task<ActionResult<User>> UpdateUser(string id, User user)
     {
 
         var userToUpdate = await userService.GetUserById(id);
@@ -71,7 +61,8 @@ public class UserController : ControllerBase
      * Remember this will response with 204 because we cannot response the deleted object
      */
     [HttpDelete("{id}")]
-    public async Task<ActionResult<User>> DeleteUser(int id)
+    [Authorize]
+    public async Task<ActionResult<User>> DeleteUser(string id)
     {
 
         try

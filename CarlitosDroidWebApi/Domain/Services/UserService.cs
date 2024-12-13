@@ -15,9 +15,15 @@ public class UserService
         _userDBContext = userDBContext;
     }
 
-    public async Task<User> GetUserById(int userId)
+    public async Task<User> GetUserById(string userId)
     {
-        var user = await _userDBContext.Users.Where(x => x.Id == userId).SingleOrDefaultAsync();
+        var user = await _userDBContext.Users.Where(x => x.UserID == userId).SingleOrDefaultAsync();
+        return user;
+    }
+
+    public async Task<User> FindByEmailAsync(string email)
+    {
+        var user = await _userDBContext.Users.Where(x => x.Email == email).SingleOrDefaultAsync();
         return user;
     }
 
@@ -27,7 +33,7 @@ public class UserService
         return await users.ToListAsync();
     }
 
-    public async Task<User> AddUser(User user)
+    public async Task<User> CreateUser(User user)
     {
         var result = await _userDBContext.Users.AddAsync(user);
         await _userDBContext.SaveChangesAsync();
@@ -38,13 +44,13 @@ public class UserService
     public async Task<ActionResult<User>> PutUser(User user)
     {
         var result = await _userDBContext.Users
-            .FirstOrDefaultAsync(e => e.Id == user.Id);
+            .FirstOrDefaultAsync(e => e.UserID == user.UserID);
 
         if (result != null)
         {
-            result.Nombre = user.Nombre;
-            result.Apellido = user.Apellido;
-            result.Telefono = user.Telefono;
+            result.Firstname = user.Firstname;
+            result.Lastname = user.Lastname;
+            result.MobileNo = user.MobileNo;
 
             await _userDBContext.SaveChangesAsync();
 
@@ -54,10 +60,10 @@ public class UserService
         return null;
     }
 
-    public async Task<User> DeleteUser(int userId)
+    public async Task<User> DeleteUser(string userId)
     {
         var result = await _userDBContext.Users
-                .FirstOrDefaultAsync(e => e.Id == userId);
+                .FirstOrDefaultAsync(e => e.UserID == userId);
 
         if (result != null)
         {
