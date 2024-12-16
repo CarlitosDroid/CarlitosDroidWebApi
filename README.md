@@ -15,6 +15,12 @@
 Server: `localhost,1433`
 Username: `sa`
 
+
+# Generate a JWT Secret
+
+1. You can use Node.js: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` look at this website https://dev.to/tkirwa/generate-a-random-jwt-secret-key-39j4 
+2. You can use https://jwtsecret.com/generate 
+
 # Used Libraries
 
 1. For documentation: `Swashbuckle.AspNetCore`

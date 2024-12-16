@@ -9,31 +9,31 @@ namespace CarlitosDroidWebApi.Domain.Service;
 // Create the Token Generation Service
 public class TokenService
 {
-    private readonly JwtConfiguration _config;
+    private readonly JwtConfiguration _jwtConfiguration;
 
-    public TokenService(JwtConfiguration config)
+    public TokenService(JwtConfiguration jwtConfiguration)
     {
-        _config = config;
+        _jwtConfiguration = jwtConfiguration;
     }
 
     public string GenerateToken(User user)
     {
         var claims = new[]
         {
-            new Claim(JwtRegisteredClaimNames.NameId, user.UserID),
+            new Claim(JwtRegisteredClaimNames.Sub, user.UserID),
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             // Add more claims if needed
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Secret));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfiguration.Secret));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            issuer: _config.Issuer,
-            audience: _config.Audience,
+            issuer: _jwtConfiguration.Issuer,
+            audience: _jwtConfiguration.Audience,
             claims: claims,
-            expires: DateTime.Now.AddDays(_config.ExpireDays),
+            expires: DateTime.Now.AddDays(_jwtConfiguration.ExpireDays),
             signingCredentials: creds
         );
 

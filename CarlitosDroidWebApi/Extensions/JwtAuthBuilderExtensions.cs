@@ -7,11 +7,12 @@ using Microsoft.IdentityModel.Tokens;
 namespace CarlitosDroidWebApi.Extensions;
 
 // Configure JWT Authentication
+// It's important that our token validation parameter are the same as the GenerateToken
 public static class JwtAuthBuilderExtensions
 {
     public static AuthenticationBuilder AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-        var jwtConfiguration = new JwtConfiguration(configuration);
+        var jwtConfiguration = new JwtConfiguration(configuration, "anyVariable");
 
         services.AddAuthorization();
 

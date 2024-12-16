@@ -7,12 +7,11 @@ public class PasswordHasher
 
     public PasswordHasher() { }
 
-    public bool VerifyHashedPassword(User userFromDatabase, string userEnteredPassword)
+    public bool VerifyHashedPassword(User userFromDatabase, string enteredPassword)
     {
 
-        string storedHashedPassword = userFromDatabase.Password;// "hashed_password_from_database";
+        string storedHashedPassword = userFromDatabase.ConfirmPassword;// "hashed_password_from_database";
         byte[] storedSaltBytes = userFromDatabase.Salt;
-        string enteredPassword = userEnteredPassword; //"user_entered_password";
 
         // Convert the stored salt and entered password to byte arrays
         // byte[] storedSaltBytes = Convert.FromBase64String(user.Salt);

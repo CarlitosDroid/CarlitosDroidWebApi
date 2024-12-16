@@ -12,13 +12,14 @@ public class JwtConfiguration
 
     public int ExpireDays { get; }
 
-    public JwtConfiguration(IConfiguration configuration)
+    public JwtConfiguration(IConfiguration configuration, string hola)
     {
         var section = configuration.GetSection("JWT");
+        Issuer = section[nameof(Issuer)] ?? Environment.GetEnvironmentVariable("JWT_ISSUER");
+        Secret = section[nameof(Secret)] ?? Environment.GetEnvironmentVariable("JWT_SECRET_KEY");
+        Audience = section[nameof(Secret)] ?? Environment.GetEnvironmentVariable("JWT_AUDIENCE");
 
-        Issuer = section[nameof(Issuer)];
-        Secret = section[nameof(Secret)];
-        Audience = section[nameof(Secret)];
-        ExpireDays = Convert.ToInt32(section[nameof(ExpireDays)], CultureInfo.InvariantCulture);
+        var jwtExpiration = section[nameof(ExpireDays)] ?? Environment.GetEnvironmentVariable("JWT_EXPIRATION");
+        ExpireDays = Convert.ToInt32(jwtExpiration, CultureInfo.InvariantCulture);
     }
 }

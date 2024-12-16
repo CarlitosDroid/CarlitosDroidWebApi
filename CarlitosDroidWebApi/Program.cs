@@ -22,14 +22,15 @@ builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseSqlServer(dbStringConnection)
 );
 builder.Services.AddScoped<PasswordHasher>();
-builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Authentication
-builder.Services.AddTransient<JwtConfiguration>();
+builder.Services.AddTransient<JwtConfiguration>(x => 
+    new JwtConfiguration(builder.Configuration, "anyVariable")
+);
 builder.Services.AddTransient<TokenService>();
 builder.Services.AddTransient<AppUserClaimsPrincipal>();
 builder.Services.AddJwtAuthentication(builder.Configuration);

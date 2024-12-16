@@ -28,7 +28,6 @@ public class AuthController : ControllerBase
     {
         var saltBytes = Security.GenerateSalt();
         // Hash the password with the salt
-        // var saltedPassword = request.Password + salt;
         string hashedPassword = passwordHandler.HashPassword(registrationRequest.Password, saltBytes);
         string base64Salt = Convert.ToBase64String(saltBytes);
         byte[] retrievedSaltBytes = Convert.FromBase64String(base64Salt);
@@ -66,16 +65,12 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
         User? user = await userService.FindByEmailAsync(request.Email);
-
         if (user == null)
         {
             return Unauthorized("Invalid credentials 1");
         }
 
-        // var saltedPassword = request.Password + user.Salt;
-
         var result = passwordHandler.VerifyHashedPassword(user, request.Password);
-
         if (!result)
         {
             return Unauthorized("Invalid credentials 2");
