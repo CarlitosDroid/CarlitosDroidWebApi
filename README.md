@@ -15,6 +15,10 @@
 Server: `localhost,1433`
 Username: `sa`
 
+# How to run the project in Production (using Google Cloud)
+1. Do not forget to set the env variables (DATABASE_URL, JWT_ISSUER, JWT_SECRET_KEY, JWT_AUDIENCE, JWT_EXPIRATION, etc) in the server.
+2. Enable Networking VPC for your web service (Google Cloud Run) to be able to connect to your database (Cloud SQL through private IP, etc).
+3. Disable Public IP for your Database, don't expose your database to the public.
 
 # Generate a JWT Secret
 
